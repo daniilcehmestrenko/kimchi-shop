@@ -1,0 +1,17 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+    {% for order in orders %}
+    <h2><a href="{{order.get_absolute_url}}">{{order.title}}</a></h2>
+            {% for tag in order.tags.all %}
+                {{tag.name_tag}}
+            {% endfor %}
+            <p><img src="{{order.image.url}}"></p>
+            <h5>Описание</h5>
+            <p>{{order.description}}</p>
+            <p>{{order.price}} руб.</p>
+            <p><form action="{% url 'home' %}" target="_blank">
+                <button value="{% url 'home' %}">Купить</button>
+            </form></p>
+    {% endfor %}
+{% endblock %}

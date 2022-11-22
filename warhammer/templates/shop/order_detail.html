@@ -1,0 +1,32 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+    <title>{{order.title}}</title>
+    <h1>{{order.title}}</h1>
+    {% for tag in order.tags.all %}
+    {{tag.name_tag}}
+    {% endfor %}
+    <p><img src="{{order.image.url}}"></p>
+    <h5>Описание</h5>
+    <p>{{order.description}}</p>
+    <p>{{order.price}} руб.</p>
+    <form action="{% url 'cart_add' order.slug %}" method="post">
+        {% csrf_token %}
+        {{cart_form}}
+        <input type="submit" value="Добавить в корзину">
+    </form>
+    {% if order.comment %}
+        {% for comment in order.comment.all %}
+            <p>{{comment.user_name}}</p>
+            <p>{{comment.content}}</p>
+        {% endfor %}
+    {% endif %}
+    </li>
+    <form action="{% url 'create_comment' order.pk %}"method="POST">
+    {% csrf_token %}
+    <div>
+    {{ form.as_p }}
+    </div>
+    <button type="submit">Отправить</button>
+    </form>
+{% endblock %}
