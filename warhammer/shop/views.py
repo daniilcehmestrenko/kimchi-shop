@@ -1,32 +1,9 @@
-from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, CreateView
 
-from .forms import AddCommentForm, CartAddProductForm
+from .forms import AddCommentForm
 from .models import Orders, Comments
-from .cart import Cart
 from .utils import DataMixin
 
-
-def cart_remove(request, slug):
-    cart = Cart(request)
-    product = get_object_or_404(Orders, slug=slug)
-    cart.remove(product)
-
-    return redirect('cart_detail')
-
-def cart_add(request, slug):
-    cart = Cart(request)
-    product = get_object_or_404(Orders, slug=slug)
-    form = CartAddProductForm(request.POST)
-    if form.is_valid():
-        data_form = form.cleaned_data
-        cart.add(product, data_form['quantity'], data_form['update'])
-
-    return redirect('cart_detail')
-
-def cart_detail(request):
-    cart = Cart(request)
-    return render(request, 'cart/detail.html', {'cart': cart})
 
 class CreateComment(CreateView):
     model = Comments
@@ -82,7 +59,8 @@ class OrderByCategoryList(DataMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        data = self.get_user_context(title=context['orders'][0].category.name)
+        data = self.get_user_context(title=context['orders'][0]
+                                     .category.name)
 
         return context|data
 

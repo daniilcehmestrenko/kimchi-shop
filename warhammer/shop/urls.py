@@ -1,8 +1,7 @@
 from django.urls import path
 
 from .views import (CreateComment, OrderDetail,
-                    OrderList, OrderByCategoryList,
-                    cart_detail, cart_add, cart_remove)
+                    OrderList, OrderByCategoryList)
 
 
 urlpatterns = [
@@ -18,13 +17,4 @@ urlpatterns = [
     path('create/<int:pk>',
          CreateComment.as_view(),
          name='create_comment'),
-    path('cart/',
-         cart_detail,
-         name='cart_detail'),
-    path('cart/add/<slug:slug>',
-         cart_add,
-         name='cart_add'),
-    path('cart/remove/<slug:slug>',
-         cart_remove,
-         name='cart_remove')
 ]

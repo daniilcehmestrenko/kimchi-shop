@@ -1,5 +1,5 @@
 from .models import Categories
-from .forms import CartAddProductForm
+from cart.forms import CartAddProductForm
 
 
 class DataMixin:
