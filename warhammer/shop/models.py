@@ -16,7 +16,11 @@ class Categories(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('category', kwargs={'slug': self.slug})
+
+        return reverse(
+            'category',
+            kwargs={'slug': self.slug}
+        )
 
 
     class Meta:
@@ -32,7 +36,10 @@ class Tags(models.Model):
             max_length=50,
             db_index=True
         )
-    slug = models.SlugField(max_length=50, db_index=True)
+    slug = models.SlugField(
+            max_length=50,
+            db_index=True,
+        )
 
     def __str__(self):
         return self.name_tag
@@ -84,7 +91,11 @@ class Orders(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('order', kwargs={'slug': self.slug})
+
+        return reverse(
+            'order',
+            kwargs={'slug': self.slug},
+        )
 
     class Meta:
         verbose_name = 'Обьявление'

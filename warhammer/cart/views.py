@@ -20,7 +20,11 @@ def cart_add(request, slug):
     form = CartAddProductForm(request.POST)
     if form.is_valid():
         data_form = form.cleaned_data
-        cart.add(product, data_form['quantity'], data_form['update'])
+        cart.add(
+            product,
+            data_form['quantity'],
+            data_form['update']
+        )
 
     return redirect('cart_detail')
 

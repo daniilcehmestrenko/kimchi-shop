@@ -16,7 +16,12 @@ class CreateComment(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return self.object.order.get_absolute_url()
+
+        return (self
+                .object
+                .order
+                .get_absolute_url()
+            )
 
 
 class OrderDetail(DataMixin, DetailView):
@@ -46,10 +51,11 @@ class OrderList(DataMixin, ListView):
         return context|data
 
     def get_queryset(self):
+
         return (Orders.objects
                 .prefetch_related('tags')
-                .filter(is_published=True
-            ))
+                .filter(is_published=True)
+            )
 
 
 class OrderByCategoryList(DataMixin, ListView):
@@ -69,5 +75,5 @@ class OrderByCategoryList(DataMixin, ListView):
         return (Orders.objects
                 .filter(
                 category__slug=self.kwargs['slug'],
-                is_published=True
-            ))
+                is_published=True)
+            )
