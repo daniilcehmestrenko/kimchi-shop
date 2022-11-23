@@ -19,7 +19,8 @@ def cart_add(request, slug):
     product = get_object_or_404(Orders, slug=slug)
     form = CartAddProductForm(request.POST)
     if form.is_valid():
-        cart.add(product, update_quantity=True)
+        data_form = form.cleaned_data
+        cart.add(product, data_form['quantity'], data_form['update'])
 
     return redirect('cart_detail')
 
@@ -52,7 +53,6 @@ class OrderDetail(DataMixin, DetailView):
         data = self.get_user_context()
         context['title'] = context['order'].title
         context['form'] = AddCommentForm()
-        context['cart_form'] = CartAddProductForm()
 
         return context|data
 

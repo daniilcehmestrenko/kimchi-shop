@@ -1,4 +1,5 @@
 from .models import Categories
+from .forms import CartAddProductForm
 
 
 class DataMixin:
@@ -6,5 +7,6 @@ class DataMixin:
         context = kwargs
         categories = Categories.objects.all()
         context['categories'] = categories
+        context['cart_form'] = CartAddProductForm
 
         return context

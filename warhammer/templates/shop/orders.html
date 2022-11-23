@@ -10,8 +10,10 @@
             <h5>Описание</h5>
             <p>{{order.description}}</p>
             <p>{{order.price}} руб.</p>
-            <p><form action="{% url 'home' %}" target="_blank">
-                <button value="{% url 'home' %}">Купить</button>
-            </form></p>
+            <form action="{% url 'cart_add' order.slug %}" method="post">
+                {% csrf_token %}
+                {{cart_form}}
+                <input type="submit" value="Добавить в корзину">
+            </form>
     {% endfor %}
 {% endblock %}
