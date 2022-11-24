@@ -53,6 +53,7 @@ class OrderList(DataMixin, ListView):
     def get_queryset(self):
 
         return (Orders.objects
+                .select_related('category')
                 .prefetch_related('tags')
                 .filter(is_published=True)
             )
@@ -73,6 +74,7 @@ class OrderByCategoryList(DataMixin, ListView):
     def get_queryset(self):
 
         return (Orders.objects
+                .select_related('category')
                 .filter(
                 category__slug=self.kwargs['slug'],
                 is_published=True)

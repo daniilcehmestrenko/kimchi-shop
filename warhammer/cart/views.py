@@ -34,6 +34,7 @@ class CartDetail(DataMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cart'] = Cart(self.request)
+        context['title'] = 'Корзина'
         data = self.get_user_context()
 
         return context|data
